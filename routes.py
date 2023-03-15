@@ -55,7 +55,7 @@ def provision():
     endpoint = Endpoint.query.filter_by(account_id=account.id, endpoint_id=endpoint_id).first()
     if endpoint is None:
         app.logger.info('PROVISIONING new endpoint')
-        endpoint = Endpoint(account.id, quicknode_id, endpoint_id, wss_url, http_url, chain, network)
+        endpoint = Endpoint(account.id, quicknode_id, endpoint_id, wss_url, http_url, chain, network, is_tester)
         db.session.add(endpoint)
         db.session.commit()
 

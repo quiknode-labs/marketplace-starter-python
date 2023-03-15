@@ -32,7 +32,7 @@ class Endpoint(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     deprovisioned_at = db.Column(db.DateTime)
 
-    def __init__(self, account_id, quicknode_id, endpoint_id, wss_url, http_url, chain, network):
+    def __init__(self, account_id, quicknode_id, endpoint_id, wss_url, http_url, chain, network, is_tester):
         self.account_id = account_id
         self.quicknode_id = quicknode_id
         self.endpoint_id = endpoint_id
@@ -40,6 +40,7 @@ class Endpoint(db.Model):
         self.http_url = http_url
         self.chain = chain
         self.network = network
+        self.is_tester = is_tester
 
     def __repr__(self):
         return f"{self.endpoint_id}"

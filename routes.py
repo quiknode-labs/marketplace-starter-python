@@ -202,9 +202,9 @@ def healthcheck():
 
 @app.route('/dashboard')
 @auth.login_required
-def index():
-    return render_template('index.html')
-
+def dashboard():
+    # use JWT token to decode account info and show dashboard
+    return render_template('dash.html')
 
 if __name__ == '__main__':
     app.run(host="localhost", port=3033, debug=True)

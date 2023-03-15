@@ -29,8 +29,6 @@ def index():
 @app.route('/provision', methods=['POST'])
 @auth.login_required
 def provision():
-    db.drop_all()
-    db.create_all()
     is_tester = request.headers['X-Qn-Testing'] == 'true'
     data = json.loads(request.data)
 

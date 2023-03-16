@@ -52,7 +52,7 @@ def provision():
     network = data.get('network', None)
     wss_url = data.get('wss-url', None)
     http_url = data.get('http-url', None)
-    contract_addresses = data.get('contract_addresses', None) # inconsistent naming
+    contract_addresses = data.get('contract_addresses', None) # TODO: inconsistent naming
     referers = data.get('referers', None)
 
     endpoint = Endpoint.query.filter_by(account_id=account.id, endpoint_id=endpoint_id).first()

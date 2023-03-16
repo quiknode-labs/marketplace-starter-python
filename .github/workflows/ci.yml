@@ -52,12 +52,12 @@ jobs:
           AUTH_USERNAME=username
           AUTH_PASSWORD=password
           HOST=localhost
-          PORT=3010
+          PORT=3015
           EOL
 
       - name: Start the web app in the background
         run: |
-          cd webapp && flask run --port=3010 &
+          cd webapp && flask run --port=3015 &
           sleep 3  # Give the web app some time to start
 
       - name: Check out source code for qn-marketplace-cli
@@ -71,13 +71,13 @@ jobs:
         run: cd cli && go build
 
       - name: Conduct a healthcheck
-        run: ./cli/qn-marketplace-cli healthcheck --url http://localhost:3010/healthcheck
+        run: ./cli/qn-marketplace-cli healthcheck --url http://localhost:3015/healthcheck
 
       - name: Conduct a PUDD test
-        run: ./cli/qn-marketplace-cli pudd --base-url http://localhost:3010 --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
+        run: ./cli/qn-marketplace-cli pudd --base-url http://localhost:3015 --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
 
       - name: Test RPC
-        run: ./cli/qn-marketplace-cli rpc --url http://localhost:3010/provision --rpc-url http://localhost:3010/rpc --rpc-method qn_test --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
+        run: ./cli/qn-marketplace-cli rpc --url http://localhost:3015/provision --rpc-url http://localhost:3015/rpc --rpc-method qn_test --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
 
       - name: Test SSO
-        run: ./cli/qn-marketplace-cli sso --url http://localhost:3010/provision  --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --jwt-secret jwt-secret --email jon@example.com --name jon --org QuickNode
+        run: ./cli/qn-marketplace-cli sso --url http://localhost:3015/provision  --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --jwt-secret jwt-secret --email jon@example.com --name jon --org QuickNode

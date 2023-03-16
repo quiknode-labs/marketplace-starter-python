@@ -17,6 +17,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 db.init_app(app)
 
 app.logger.setLevel(logging.INFO)
-handler = RotatingFileHandler('logs/log_file.log', maxBytes=10000, backupCount=1)
+handler = RotatingFileHandler('log_file.log', maxBytes=10000, backupCount=1)
 handler.setLevel(logging.INFO)
 app.logger.addHandler(handler)

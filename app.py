@@ -6,6 +6,8 @@ from . import app, db
 from .data import Account, Endpoint, Referer, ContractAddress
 from datetime import datetime
 
+host = os.getenv('HOST')
+
 auth_username = os.getenv('AUTH_USERNAME')
 auth_password = os.getenv('AUTH_PASSWORD')
 auth = HTTPBasicAuth()
@@ -75,7 +77,7 @@ def provision():
             db.session.add(new_address)
             db.session.commit()
 
-    return {"status": "success"}
+    return {"status": "success", "dashboard-url": f"http://{host}/dashboard"}
 
 # Update endpoint with PUT method
 @app.route('/update', methods=['PUT'])

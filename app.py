@@ -204,7 +204,6 @@ def healthcheck():
         return {'status': 'error'}
 
 @app.route('/dashboard')
-@auth.login_required
 def dashboard():
     # use JWT token to decode account info and show dashboard
     return render_template('dash.html')

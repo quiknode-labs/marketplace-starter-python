@@ -54,6 +54,7 @@ jobs:
           HOST=localhost
           PORT=3015
           JWT_SECRET=jwt-secret
+          FLASK_ENV=development
           EOL
 
       - name: Start the web app in the background

@@ -208,9 +208,9 @@ def healthcheck():
 
 @app.route('/dashboard')
 def dashboard():
-    token = request.args.get('jwt', default = None, type = str)
-    app.logger.info(f'JWT: {token}')
     try:
+        token = request.args.get('jwt', default = None, type = str)
+        app.logger.info(f'JWT: {token}')
         decoded_token = jwt.decode(token, jwt_secret, algorithms=['HS256'])
     except jwt.exceptions.InvalidSignatureError:
         return { 'error': 'Invalid token' }, 401

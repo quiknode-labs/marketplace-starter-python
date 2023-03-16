@@ -7,6 +7,7 @@ from .data import Account, Endpoint, Referer, ContractAddress
 from datetime import datetime
 
 host = os.getenv('HOST')
+port = os.getenv('PORT')
 
 auth_username = os.getenv('AUTH_USERNAME')
 auth_password = os.getenv('AUTH_PASSWORD')
@@ -77,7 +78,7 @@ def provision():
             db.session.add(new_address)
             db.session.commit()
 
-    return {"status": "success", "dashboard-url": f"http://{host}/dashboard"}
+    return {"status": "success", "dashboard-url": f"http://{host}:{port}/dashboard"}
 
 # Update endpoint with PUT method
 @app.route('/update', methods=['PUT'])
@@ -209,4 +210,4 @@ def dashboard():
     return render_template('dash.html')
 
 if __name__ == '__main__':
-    app.run(host="localhost", port=3033, debug=True)
+    app.run(host="localhost", port=port, debug=True)

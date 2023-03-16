@@ -52,6 +52,7 @@ jobs:
           AUTH_USERNAME=username
           AUTH_PASSWORD=password
           HOST=localhost
+          PORT=3010
           EOL
 
       - name: Start the web app in the background

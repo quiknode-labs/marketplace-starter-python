@@ -1,6 +1,8 @@
+#!/usr/bin/env python3.7
 from flask import render_template, request, json
 from flask_httpauth import HTTPBasicAuth
 import os
+import jwt
 
 from . import app, db
 from .data import Account, Endpoint, Referer, ContractAddress
@@ -8,6 +10,7 @@ from datetime import datetime
 
 host = os.getenv('HOST')
 port = os.getenv('PORT')
+jwt_secret = os.getenv('JWT_SECRET')
 
 auth_username = os.getenv('AUTH_USERNAME')
 auth_password = os.getenv('AUTH_PASSWORD')
@@ -205,8 +208,22 @@ def healthcheck():
 
 @app.route('/dashboard')
 def dashboard():
-    # use JWT token to decode account info and show dashboard
+    token = request.args.get('jwt')
+    app.logger.info(f'JWT: {token}')
+    if token is None:
+        return { 'error': 'Missing token' }, 400
+    app.logger.info(f'JWT: {token}')
+    try:
+        decoded_token = jwt.decode(token, jwt_secret, algorithms=['HS256'])
+    except jwt.InvalidTokenError:
+        return { 'error': 'Invalid token' }, 401
+
+    account = Account.query.filter_by(quicknode_id=decoded_token['quicknode_id']).first()
+    if account is None:
+        app.logger.info('[WARNING] account is not provisioned yet.')
+        return {"status": "error","message": f'Unable to find account: "{decoded_token["quicknode_id"]}"'}
+
     return render_template('dash.html')
 
 if __name__ == '__main__':
-    app.run(host="localhost", port=port, debug=True)
+    app.run(host=host, port=port, debug=True)

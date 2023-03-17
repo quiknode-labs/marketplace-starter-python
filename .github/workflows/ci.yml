@@ -53,6 +53,7 @@ jobs:
           AUTH_PASSWORD=password
           HOST=localhost
           PORT=3015
+          JWT_SECRET=jwt-secret
           EOL
 
       - name: Start the web app in the background

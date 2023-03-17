@@ -20,7 +20,6 @@ To install and run the application locally:
 5. Copy `.env.example` to `.env` file and fill in `DB_URL`, `AUTH_USERNAME`, and `AUTH_PASSWORD` with the appropiate values.
 6. Run the application: `flask run`.
 
-
 ## Routes
 
 The application has 4 provisioning routes protected by HTTP Basic Auth:
@@ -63,7 +62,6 @@ print(encoded_string)
 For the commands below, the `--basic-auth` flag is the Base64 encoding of `username:password`.
 You need to make sure to replace that with your valid credentials (as defined in your `.env` file).
 
-
 PUDD:
 
 ```sh
@@ -73,7 +71,7 @@ PUDD:
 SSO:
 
 ```sh
-./qn-marketplace-cli sso --url http://localhost:3015/provision --jwt-secret jwt-secret --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= 
+./qn-marketplace-cli sso --url http://localhost:3015/provision --jwt-secret jwt-secret --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
 ```
 
 RPC:

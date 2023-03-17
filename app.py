@@ -208,13 +208,14 @@ def healthcheck():
 
 @app.route('/dashboard')
 def dashboard():
-    token = request.args.get('jwt', default = None, type = str)
+    token = request.args.get('jwt')
+    app.logger.info(f'JWT: {token}')
     if token is None:
-        return { 'error': 'Missing token' }, 401
+        return { 'error': 'Missing token' }, 400
     app.logger.info(f'JWT: {token}')
     try:
         decoded_token = jwt.decode(token, jwt_secret, algorithms=['HS256'])
-    except jwt.exceptions.InvalidSignatureError:
+    except jwt.InvalidTokenError:
         return { 'error': 'Invalid token' }, 401
 
     account = Account.query.filter_by(quicknode_id=decoded_token['quicknode_id']).first()

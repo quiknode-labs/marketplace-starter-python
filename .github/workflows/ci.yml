@@ -54,7 +54,6 @@ jobs:
           HOST=localhost
           PORT=3015
           JWT_SECRET=jwt-secret
-          FLASK_ENV=development
           EOL
 
       - name: Start the web app in the background
@@ -82,4 +81,4 @@ jobs:
         run: ./cli/qn-marketplace-cli rpc --url http://localhost:3015/provision --rpc-url http://localhost:3015/rpc --rpc-method qn_test --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
 
       - name: Test SSO
-        run: ./cli/qn-marketplace-cli sso --url http://localhost:3015/provision  --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --jwt-secret jwt-secret --email jon@example.com --name jon --org QuickNode --verbose true
+        run: ./cli/qn-marketplace-cli sso --url http://localhost:3015/provision  --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --jwt-secret jwt-secret --email jon@example.com --name jon --org QuickNode

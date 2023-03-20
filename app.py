@@ -201,10 +201,10 @@ def rpc():
 @app.route('/healthcheck')
 def healthcheck():
     try:
-        db.session.execute('SELECT 1')
+        Account.query.first()
         return {'status': 'ok'}
     except:
-        return {'status': 'success'}
+        return {'status': 'error'}
 
 @app.route('/dashboard')
 def dashboard():

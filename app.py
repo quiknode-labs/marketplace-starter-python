@@ -81,7 +81,7 @@ def provision():
             db.session.add(new_address)
             db.session.commit()
 
-    return {"status": "success", "dashboard-url": f"http://{host}:{port}/dashboard"}
+    return {"status": "success", "dashboard-url": f"http://{host}:{port}/dashboard",  "access-url": f"http://{host}:{port}/access"}
 
 # Update endpoint with PUT method
 @app.route('/update', methods=['PUT'])
@@ -139,7 +139,7 @@ def update():
         db.session.add(new_address)
         db.session.commit()
 
-    return {"status": "success"}
+    return {"status": "success", "dashboard-url": f"http://{host}:{port}/dashboard",  "access-url": f"http://{host}:{port}/access"}
 
 # Deactivate endpoint with DELETE method
 @app.route('/deactivate_endpoint', methods=['DELETE'])
@@ -204,7 +204,7 @@ def healthcheck():
         db.session.execute('SELECT 1')
         return {'status': 'ok'}
     except:
-        return {'status': 'error'}
+        return {'status': 'success'}
 
 @app.route('/dashboard')
 def dashboard():
@@ -224,6 +224,10 @@ def dashboard():
         return {"status": "error","message": f'Unable to find account: "{decoded_token["quicknode_id"]}"'}
 
     return render_template('dash.html')
+
+@app.route('/access')
+def access():
+    return {'status': 'success'}
 
 if __name__ == '__main__':
     app.run(host=host, port=port, debug=True)
